@@ -36,3 +36,32 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+ let theDeck = document.querySelectorAll('.card');
+ let revealed = [];
+
+ console.log(theDeck);
+
+ theDeck.forEach(function(card){
+   card.addEventListener('click', function(e){
+     var cardClass = card.classList;
+
+     if(!cardClass.contains('show')){
+       console.log('action');
+       cardClass.add('show', 'open');
+       revealed.push(card);
+       if(revealed.length == 2){
+         console.log('testing');
+         revealed.forEach(function(opencard){
+           opencard.classList.remove('show', 'open');
+         });
+         console.log(revealed);
+         revealed = [];
+       }
+     }
+     else {
+       console.log('no action');
+     }
+
+   });
+ });
