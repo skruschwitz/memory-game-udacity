@@ -12,17 +12,18 @@
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+  var currentIndex = array.length,
+    temporaryValue, randomIndex;
 
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
 
-    return array;
+  return array;
 }
 
 
@@ -37,31 +38,72 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
- let theDeck = document.querySelectorAll('.card');
- let revealed = [];
+let reset = document.querySelector('.testreset');
+let theDeck = document.querySelectorAll('.card');
+let revealed = [];
+let movecount = 0;
+/*
+function timerFunc() {
+  setInterval(function () {
+  }, 1000);
+};
+*/
+function moveCounter(count) {
+console.log(count);
+document.querySelector('.moves').textContent = count;
+}
 
- console.log(theDeck);
 
- theDeck.forEach(function(card){
-   card.addEventListener('click', function(e){
-     var cardClass = card.classList;
+reset.addEventListener('click', function(e) {
+  theDeck.forEach(function(thecards){
+    thecards.classList.remove('match', 'open', 'show');
+    moveCounter(0)
+  });
+});
 
-     if(!cardClass.contains('show')){
-       console.log('action');
-       cardClass.add('show', 'open');
-       revealed.push(card);
-       if(revealed.length == 2){
-         console.log('testing');
-         revealed.forEach(function(opencard){
-           opencard.classList.remove('show', 'open');
-         });
-         console.log(revealed);
-         revealed = [];
-       }
-     }
-     else {
-       console.log('no action');
-     }
+console.log(theDeck);
 
-   });
- });
+theDeck.forEach(function(card) {
+  card.addEventListener('click', function(e) {
+
+      if (!card.classList.contains('open') || !card.classList.contains('show') || !card.classList.contains('match')) {
+
+
+
+        revealed.push(card);
+
+        card.classList.add('open', 'show');
+
+        if (revealed.length == 2){
+            movecount = movecount + 1
+            moveCounter(movecount);
+            //check for match
+            var cardOne = revealed[0].children[0].classList[1];
+            var cardTwo = revealed[1].children[0].classList[1];
+
+            if (cardOne === cardTwo) {
+              console.log(cardOne);
+              revealed.forEach(function(open){
+
+              open.classList.remove('show');
+              open.classList.add('match');
+
+              });
+            }
+            else {
+            revealed.forEach(function(open){
+
+            open.classList.remove('open', 'show');
+
+            });
+          }
+
+          revealed = [];
+        }
+
+      }
+
+      console.log(revealed);
+
+});
+});
