@@ -38,26 +38,44 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-let reset = document.querySelector('.testreset');
+let reset = document.querySelector('.restart');
 let theDeck = document.querySelectorAll('.card');
 let revealed = [];
 let movecount = 0;
+let matchedcards = [];
 /*
 function timerFunc() {
   setInterval(function () {
   }, 1000);
 };
 */
-function moveCounter(count) {
-console.log(count);
-document.querySelector('.moves').textContent = count;
+
+/*
+timer from  https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
+*/
+
+var sec = 0;
+function pad ( val ) { return val > 9 ? val : "0" + val; }
+setInterval( function(){
+    document.getElementById("seconds").innerHTML=pad(++sec%60);
+    document.getElementById("minutes").innerHTML=pad(parseInt(sec/60,10));
+    console.log(pad(++sec%60));
+}, 1000);
+
+
+
+function moveCounter() {
+    movecount = movecount + 1;
+  console.log(movecount);
+document.querySelector('.moves').textContent = movecount;
 }
 
 
 reset.addEventListener('click', function(e) {
   theDeck.forEach(function(thecards){
     thecards.classList.remove('match', 'open', 'show');
-    moveCounter(0)
+    document.querySelector('.moves').textContent = 0;
+    movecount = 0;
   });
 });
 
@@ -75,35 +93,30 @@ theDeck.forEach(function(card) {
         card.classList.add('open', 'show');
 
         if (revealed.length == 2){
-            movecount = movecount + 1
-            moveCounter(movecount);
+            moveCounter(1);
             //check for match
             var cardOne = revealed[0].children[0].classList[1];
             var cardTwo = revealed[1].children[0].classList[1];
 
             if (cardOne === cardTwo) {
-              console.log(cardOne);
               revealed.forEach(function(open){
 
               open.classList.remove('show');
               open.classList.add('match');
-
+              matchedcards.push(open);
+              console.log(matchedcards);
               });
             }
             else {
             revealed.forEach(function(open){
-
             open.classList.remove('open', 'show');
-
             });
           }
-
+          //reset reveal
           revealed = [];
         }
 
       }
-
-      console.log(revealed);
 
 });
 });
