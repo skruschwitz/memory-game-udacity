@@ -52,7 +52,7 @@ function timerFunc() {
 
 /*
 timer from  https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
-*/
+
 
 var sec = 0;
 function pad ( val ) { return val > 9 ? val : "0" + val; }
@@ -61,6 +61,26 @@ setInterval( function(){
     document.getElementById("minutes").innerHTML=pad(parseInt(sec/60,10));
     console.log(pad(++sec%60));
 }, 1000);
+
+*/
+
+/* - timer
+https://stackoverflow.com/questions/29971898/how-to-create-an-accurate-timer-in-javascript/29972322#29972322
+*/
+var interval = 1000; // ms
+var expected = Date.now() + interval;
+setTimeout(step, interval);
+function step() {
+    var dt = Date.now() - expected; // the drift (positive for overshooting)
+    if (dt > interval) {
+        // something really bad happened. Maybe the browser (tab) was inactive?
+        // possibly special handling to avoid futile "catch up" run
+    }
+    … // do what is to be done
+
+    expected += interval;
+    setTimeout(step, Math.max(0, interval - dt)); // take into account drift
+}
 
 
 
