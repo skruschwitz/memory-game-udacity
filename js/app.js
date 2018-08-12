@@ -43,6 +43,7 @@ let theDeck = document.querySelectorAll('.card');
 let revealed = [];
 let movecount = 0;
 let matchedcards = [];
+
 /*
 function timerFunc() {
   setInterval(function () {
@@ -66,7 +67,7 @@ setInterval( function(){
 
 /* - timer
 https://stackoverflow.com/questions/29971898/how-to-create-an-accurate-timer-in-javascript/29972322#29972322
-*/
+
 var interval = 1000; // ms
 var expected = Date.now() + interval;
 setTimeout(step, interval);
@@ -82,16 +83,34 @@ function step() {
     setTimeout(step, Math.max(0, interval - dt)); // take into account drift
 }
 
+*/
 
+let timer = 0;
+let timePTR;
+// Function to start game timer.
+function startTimer(){
+    timer += 1;
+    //document.getElementById("timer").innerHTML = timer;
+    timePTR = setTimeout(startTimer, 1000);
+}
+
+
+function gameOver(){
+  //display modal
+  clearTimeout(timePTR);
+  document.getElementById('results-modal').style.display='block';
+}
 
 function moveCounter() {
     movecount = movecount + 1;
-  console.log(movecount);
-document.querySelector('.moves').textContent = movecount;
+    console.log(movecount);
+    document.querySelector('.moves').textContent = movecount;
 }
 
 
 reset.addEventListener('click', function(e) {
+
+  startTimer();
   theDeck.forEach(function(thecards){
     thecards.classList.remove('match', 'open', 'show');
     document.querySelector('.moves').textContent = 0;
@@ -125,6 +144,9 @@ theDeck.forEach(function(card) {
               open.classList.add('match');
               matchedcards.push(open);
               console.log(matchedcards);
+              if (matchedcards.length == 16) {
+                gameOver();
+              }
               });
             }
             else {
