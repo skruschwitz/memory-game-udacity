@@ -1,6 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
+ let myCards = ["fa-diamond","fa-paper-plane-o","fa-anchor","fa-bolt","fa-cube","fa-leaf","fa-bicycle","fa-bomb","fa-diamond","fa-paper-plane-o","fa-anchor","fa-bolt","fa-cube","fa-leaf","fa-bicycle","fa-bomb"];
 
 
 /*
@@ -27,6 +28,33 @@ function shuffle(array) {
 }
 
 
+function deal(){
+  myCards = shuffle(myCards);
+  myCards.forEach(function(element) {
+    //document.getElementById('alt-deck').innerHTML = '<li><i class="fa ' + element+'"></i>';
+    const newCard = document.createElement('li');
+    newCard.className = "card";
+    const newCardData = document.createElement('i');
+    newCardData.className = element;
+
+    const addNewCardData = newCard.appendChild(newCardData);
+    console.log(newCard);
+  const addNewCard = altDeck.appendChild(newCard);
+  //console.log('<li><i class="fa ' + element+'"><\/i>');
+});
+}
+/*
+for (let i = 0; i < card_names.length; i++) {
+
+    const newCard = document.createElement('li');
+    newCard.className = "card";
+    const newCardData = document.createElement('i');
+    newCardData.className = card_names[i];
+
+    const addNewCardData = newCard.appendChild(newCardData);
+    const addNewCard = deck.appendChild(newCard);
+}
+}*/
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -38,55 +66,25 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+let heroDeck = document.getElementById('deck');
+
 let reset = document.querySelector('.restart');
 let theDeck = document.querySelectorAll('.card');
 let revealed = [];
 let movecount = 0;
 let matchedcards = [];
-
-/*
-function timerFunc() {
-  setInterval(function () {
-  }, 1000);
-};
-*/
-
-/*
-timer from  https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
-
-
-var sec = 0;
-function pad ( val ) { return val > 9 ? val : "0" + val; }
-setInterval( function(){
-    document.getElementById("seconds").innerHTML=pad(++sec%60);
-    document.getElementById("minutes").innerHTML=pad(parseInt(sec/60,10));
-    console.log(pad(++sec%60));
-}, 1000);
-
-*/
-
-/* - timer
-https://stackoverflow.com/questions/29971898/how-to-create-an-accurate-timer-in-javascript/29972322#29972322
-
-var interval = 1000; // ms
-var expected = Date.now() + interval;
-setTimeout(step, interval);
-function step() {
-    var dt = Date.now() - expected; // the drift (positive for overshooting)
-    if (dt > interval) {
-        // something really bad happened. Maybe the browser (tab) was inactive?
-        // possibly special handling to avoid futile "catch up" run
-    }
-    … // do what is to be done
-
-    expected += interval;
-    setTimeout(step, Math.max(0, interval - dt)); // take into account drift
-}
-
-*/
-
 let timer = 0;
 let timePTR;
+let resultBoard = document.getElementById('results-modal');
+
+let oneStar = document.querySelector('one-stars');
+let twoStar = document.querySelector('two-stars');
+let threeStar = document.querySelector('three-stars');
+
+function starRating(moves){
+  console.log(moves);
+}
+
 // Function to start game timer.
 function startTimer(){
     timer += 1;
@@ -98,24 +96,26 @@ function startTimer(){
 function gameOver(){
   //display modal
   clearTimeout(timePTR);
-  document.getElementById('results-modal').style.display='block';
+  resultBoard.style.display='block';
 }
 
 function moveCounter() {
     movecount = movecount + 1;
     console.log(movecount);
     document.querySelector('.moves').textContent = movecount;
+    starRating(movecount);
 }
 
-
+//reset listener - function ??
 reset.addEventListener('click', function(e) {
-
-  startTimer();
+  matchedcards = [];
+  movecount = 0;
+  deal();
   theDeck.forEach(function(thecards){
     thecards.classList.remove('match', 'open', 'show');
     document.querySelector('.moves').textContent = 0;
-    movecount = 0;
   });
+  startTimer();
 });
 
 console.log(theDeck);
@@ -123,7 +123,7 @@ console.log(theDeck);
 theDeck.forEach(function(card) {
   card.addEventListener('click', function(e) {
 
-      if (!card.classList.contains('open') || !card.classList.contains('show') || !card.classList.contains('match')) {
+      if (!card.classList.contains('open') || (!card.classList.contains('show') && !card.classList.contains('match'))) {
 
 
 
@@ -139,7 +139,7 @@ theDeck.forEach(function(card) {
 
             if (cardOne === cardTwo) {
               revealed.forEach(function(open){
-
+                console.log(open + '-this is open');
               open.classList.remove('show');
               open.classList.add('match');
               matchedcards.push(open);

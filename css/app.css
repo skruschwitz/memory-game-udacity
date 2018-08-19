@@ -81,6 +81,13 @@ h1 {
     font-size: 33px;
 }
 
+.deck .card.error {
+  background: #ff0000;
+  height: 105px;
+  width: 105px;
+  margin: 10px;
+}
+
 /*
  * Styles for the Score Panel
  */
@@ -103,13 +110,17 @@ h1 {
     display: inline-block;
 }
 
+#one-stars,#two-stars,#three-stars {
+  color: #f00;
+}
+
 .score-panel .restart {
     float: right;
     cursor: pointer;
 }
 
 #results-modal {
-  display:block;
+  display:none;
   position: fixed;
   top: 0;
   left: 0;
@@ -125,9 +136,28 @@ h1 {
   margin: 10% auto;
   padding: 20px;
   border-radius: 10px;
+  text-align: center;
+}
+
+.results h1 {
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .results p {
   font-size: 18px;
   margin: 20px;
 }
+
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+/* maybe use this */
