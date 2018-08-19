@@ -17,7 +17,7 @@ body {
 }
 
 body {
-    background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
+    background: #ccc;
     font-family: 'Coda', cursive;
 }
 
@@ -103,6 +103,7 @@ h1 {
     padding: 0;
     display: inline-block;
     margin: 0 5px 0 0;
+    color: #f00;
 }
 
 .score-panel .stars li {
@@ -119,8 +120,10 @@ h1 {
     cursor: pointer;
 }
 
+/* results modal */
+
 #results-modal {
-  display:none;
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -149,15 +152,23 @@ h1 {
   margin: 20px;
 }
 
-.button {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
+
+.results .final-score i {
+    list-style: none;
     display: inline-block;
-    font-size: 16px;
+    color: #f00;
+    margin: 0 5px;
 }
 
-/* maybe use this */
+.button {
+    background-color: #ff0000;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
