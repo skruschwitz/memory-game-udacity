@@ -33,22 +33,30 @@ function gameOver() {
   resultBoard.style.display = 'block';
 }
 
+
+// Star scoring system
 function starRating(moves, match) {
-  if (moves * 2 >= matchedcards.length * .66) {
+  console.log(moves + '- - ' + match);
+  if (moves * 2 < 32) {
     /* three */
     threeStar.style.color = '#ff0000';
     twoStar.style.color = '#ff0000';
     oneStar.style.color = '#ff0000';
-  } else if (moves * 2 >= matchedcards.length * .33) {
+  } else if (moves * 2 <= 40) {
     /* two */
     threeStar.style.color = '#cccccc';
     twoStar.style.color = '#ff0000';
+    oneStar.style.color = '#ff0000';
+  } else if (moves * 2 <= 48) {
+    /* two */
+    threeStar.style.color = '#cccccc';
+    twoStar.style.color = '#cccccc';
     oneStar.style.color = '#ff0000';
   } else {
     /* one */
     threeStar.style.color = '#cccccc';
     twoStar.style.color = '#cccccc';
-    oneStar.style.color = '#ff0000';
+    oneStar.style.color = '#cccccc';
   }
 }
 
