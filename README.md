@@ -24,7 +24,7 @@ The game is over once the user has matched all the cards. The timer will stop an
 
 Goal: Fewest moves
 
-#scoring
+## Scoring
 
 * Less than 16 moves - 3 stars
 * 16 to 23 moves - 2 stars
