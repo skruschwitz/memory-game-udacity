@@ -33,11 +33,17 @@ function gameOver() {
   //stop time
   clearTimeout(timer);
   //insert final score into modal
+  if (score >= 1){
   let i = 0;
-  while(i <= score){
+  while(i < score){
+    console.log(finalScore.innerHTML + '-' + score);
     finalScore.innerHTML = finalScore.innerHTML + '<i class="fa fa-star"></i>';
     i++;
   }
+}
+else {
+  finalScore.innerHTML = '<i class="fa fa-times"></i>';
+}
   //insert final time into modal
   finalTime.innerHTML = secondsToMinutes(time);
   //display modal
@@ -47,6 +53,7 @@ function gameOver() {
 
 // Star scoring system
 function starRating(reset) {
+  console.log(score);
   if (reset == 'reset'){
     threeStar.style.color = '#ff0000';
     twoStar.style.color = '#ff0000';
@@ -64,7 +71,7 @@ function starRating(reset) {
     score = 1;
     twoStar.style.color = '#cccccc';
   }
-  if (movecount * 2 === 56) {
+  if (movecount * 2 === 64) {
     /* none */
     score = 0;
     oneStar.style.color = '#cccccc';
