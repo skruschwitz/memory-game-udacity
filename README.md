@@ -5,6 +5,7 @@
 * [Description](#description)
 * [How to Play](#howtoplay)
 * [Scoring](#scoring)
+* [Dependencies](#dependencies)
 * [Project Instructions](#instructions)
 * [Contributing](#contributing)
 
@@ -24,12 +25,17 @@ The game is over once the user has matched all the cards. The timer will stop an
 
 Goal: Fewest moves
 
-#scoring
+## Scoring
 
 * Less than 16 moves - 3 stars
 * 16 to 23 moves - 2 stars
-* 23 to 32 moves - 1 star
-* more than 32 moves - no stars(displayed as red X)
+* more than 23 moves - 1 star
+
+## Dependencies
+
+* bootstrap/font awesome for icons - stars
+* Google Fonts - coda
+* starter files provided by Udacity
 
 ## Project Instructions
 

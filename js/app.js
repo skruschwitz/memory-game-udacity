@@ -1,7 +1,10 @@
 /*
  * Deck with card classess
  */
-let myCards = ['fa fa-diamond', 'fa fa-paper-plane-o', 'fa fa-anchor', 'fa fa-bolt', 'fa fa-cube', 'fa fa-leaf', 'fa fa-bicycle', 'fa fa-bomb', 'fa fa-diamond', 'fa fa-paper-plane-o', 'fa fa-anchor', 'fa fa-bolt', 'fa fa-cube', 'fa fa-leaf', 'fa fa-bicycle', 'fa fa-bomb'];
+let myCards = ['fa fa-diamond', 'fa fa-paper-plane-o', 'fa fa-anchor', 'fa fa-bolt', 'fa fa-cube', 'fa fa-leaf', 'fa fa-bicycle', 'fa fa-bomb'];
+
+//create 'pairs' of the cards in the array by combining myCards with itself
+myCards = myCards.concat(myCards);
 
 let deckRack = document.getElementById('deckRack');
 
@@ -9,18 +12,19 @@ let oneStar = document.getElementById('one-star');
 let twoStar = document.getElementById('two-star');
 let threeStar = document.getElementById('three-star');
 
-let timerDisplay = document.querySelector('.timer')
-let movesDisplay = document.querySelector('.moves')
+let timerDisplay = document.querySelector('.timer');
+let movesDisplay = document.querySelector('.moves');
 let reset = document.querySelector('.restart');
 
 /* results modal */
 let resultBoard = document.getElementById('results-modal');
-let finalScore = document.querySelector('.final-score')
-let finalTime = document.querySelector('.final-time')
-let playAgain = document.querySelector('.play-again')
+let finalScore = document.querySelector('.final-score');
+let finalTime = document.querySelector('.final-time');
+let finalMoves = document.querySelector('.final-moves');
+let playAgain = document.querySelector('.play-again');
 
 let revealed = [];
-let movecount = 0;
+let moveCount = 0;
 let matchedcards = [];
 let score = 3;
 let time = 0;
@@ -33,19 +37,15 @@ function gameOver() {
   //stop time
   clearTimeout(timer);
   //insert final score into modal
-  if (score >= 1){
   let i = 0;
   while(i < score){
     console.log(finalScore.innerHTML + '-' + score);
     finalScore.innerHTML = finalScore.innerHTML + '<i class="fa fa-star"></i>';
     i++;
   }
-}
-else {
-  finalScore.innerHTML = '<i class="fa fa-times"></i>';
-}
   //insert final time into modal
   finalTime.innerHTML = secondsToMinutes(time);
+  finalMoves.innerHTML = moveCount;
   //display modal
   resultBoard.style.display = 'block';
 }
@@ -61,28 +61,23 @@ function starRating(reset) {
   }
   else {
   /* defaults to 3 starts */
-  if (movecount * 2 === 32) {
+  if (moveCount * 2 === 32) {
     /* two */
     score = 2;
     threeStar.style.color = '#cccccc';
   }
-  if (movecount * 2 === 48) {
+  if (moveCount * 2 === 48) {
     /* one */
     score = 1;
     twoStar.style.color = '#cccccc';
-  }
-  if (movecount * 2 === 64) {
-    /* none */
-    score = 0;
-    oneStar.style.color = '#cccccc';
   }
 }
 }
 
 //count moves
 function moveCounter() {
-  movecount = movecount + 1;
-  movesDisplay.textContent = movecount;
+  moveCount = moveCount + 1;
+  movesDisplay.textContent = moveCount;
   //call score function
   starRating();
 }
@@ -144,7 +139,7 @@ deckRack.addEventListener('click', function() {
   if (card.className === 'card') {
     //chick for 'playable' card
     if (!card.classList.contains('open') || (!card.classList.contains('show') && !card.classList.contains('match'))) {
-      //push ot revealed array
+      //push to revealed array
       revealed.push(card);
       //display card as in play
       card.classList.add('open', 'show');
@@ -188,13 +183,13 @@ deckRack.addEventListener('click', function() {
 //Initialize game
 function initGame() {
   revealed = [];
-  movecount = 0;
+  moveCount = 0;
   matchedcards = [];
   score = 3;
   time = 0;
   timer;
-  movesDisplay.textContent = movecount;
-  timerDisplay.innerHTML = "0:00";
+  movesDisplay.textContent = moveCount;
+  timerDisplay.innerHTML = '0:00';
   starRating('reset');
   deal();
 }
