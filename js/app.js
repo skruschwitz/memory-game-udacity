@@ -190,6 +190,7 @@ function initGame() {
   timer;
   movesDisplay.textContent = moveCount;
   timerDisplay.innerHTML = '0:00';
+  finalScore.innerHTML = '';
   starRating('reset');
   deal();
 }
